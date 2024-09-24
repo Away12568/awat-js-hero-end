@@ -267,3 +267,64 @@ const cards3 = ProductsData3.map(card => {
     `
 }).join('')
 wrapper3.innerHTML = cards3
+
+
+
+const modal = document.querySelector (".modal")
+const openModal = document.querySelector ("#open-btn")
+const closed = document.querySelector(".close")
+
+openModal.onclick = () => {
+    modal.classList.add("active")
+}
+
+closed.onclick = () => {
+    modal.classList.remove("active")
+}
+
+
+
+document.getElementById('telegramForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const name = document.getElementById('name').value;
+    const phone = document.getElementById('phone').value;
+    const token = '7348528571:AAF3ipym-07trz7trtTLfS5i4SWtoRolbkk';  // Замените на ваш токен
+    const chat_id = '-4563537717';  // Замените на ваш chat_id
+    const url = `https://api.telegram.org/bot${token}/sendMessage`;
+
+    // Формируем сообщение
+    const message = `Name: ${name}\nPhone: ${phone} `;
+
+    const data = {
+      chat_id: chat_id,
+      text: message
+    };
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.ok) {
+        alert("Message sent!");
+        location.reload
+      } else {
+        alert("Error sending message.");
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert("Error sending message.");
+    });
+  });
+
+  const theme = document.querySelector("#theme")
+  const body = document.querySelector("body")
+  theme.onclick = () =>{
+    body.classList.toggle("dark")
+  }
